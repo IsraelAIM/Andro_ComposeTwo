@@ -1,7 +1,9 @@
-package Israel.Alfredo.Itza.Mendez.nierKaguya.nier
+package Israel.Alfredo.Itza.Mendez.nierKaguya.screen.main
 
-import Israel.Alfredo.Itza.Mendez.nierKaguya.MediaItem
-import Israel.Alfredo.Itza.Mendez.nierKaguya.getMedia
+import Israel.Alfredo.Itza.Mendez.nierKaguya.R
+import Israel.Alfredo.Itza.Mendez.nierKaguya.model.MediaItem
+import Israel.Alfredo.Itza.Mendez.nierKaguya.model.getMedia
+import Israel.Alfredo.Itza.Mendez.nierKaguya.nier.MiNierApp
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -27,12 +30,12 @@ import coil.compose.rememberImagePainter
 fun MediaYList(modifier: Modifier = Modifier) {
     MiNierApp {
         LazyVerticalGrid(
-            contentPadding = PaddingValues(2.dp),
-            cells = GridCells.Adaptive(150.dp),
+            contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_xsmall)),
+            cells = GridCells.Adaptive(dimensionResource(id = R.dimen.cell_min_width)),
             modifier = modifier
         ) {
             items(getMedia()) { item ->
-                MediaVGListItem(item, Modifier.padding(2.dp))
+                MediaVGListItem(item, Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall)))
             }
         }
     }
@@ -45,12 +48,12 @@ fun MediaYList(modifier: Modifier = Modifier) {
 @Composable
 fun MediaXList(modifier: Modifier = Modifier) {
     LazyVerticalGrid(
-        contentPadding = PaddingValues(2.dp),
-        cells = GridCells.Adaptive(150.dp),
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_xsmall)),
+        cells = GridCells.Adaptive(dimensionResource(id = R.dimen.cell_min_width)),
         modifier = modifier
     ) {
         items(getMedia()) { item ->
-            MediaVGListItem(item, Modifier.padding(2.dp))
+            MediaVGListItem(item, Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall)))
         }
     }
 }
@@ -113,7 +116,7 @@ fun MediaVGListItem(item: MediaItem, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Box(
             modifier = Modifier
-                .height(200.dp)
+                .height(dimensionResource(id = R.dimen.cell_thumb_height))
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
@@ -136,7 +139,7 @@ fun MediaVGListItem(item: MediaItem, modifier: Modifier = Modifier) {
                 Icon(
                     Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
                     contentDescription = null,
-                    modifier = Modifier.size(92.dp),
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.cell_play_icon_size)),
                     tint = Color.White
                 )
             }
@@ -148,7 +151,7 @@ fun MediaVGListItem(item: MediaItem, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.secondary)
-                .padding(16.dp)
+                .padding(dimensionResource(id = R.dimen.padding_medium))
         ) {
             Text(
                 text = item.title,

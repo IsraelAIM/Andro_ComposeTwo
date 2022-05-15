@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+
 //ESTE CODIGO NO ES IMPORTANTE
 
 //Este es la función que interviene
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(text = "Hello $name!", modifier = modifier)
 }
+
 //@Preview(showBackground = true, widthDp = 200, heightDp = 100)
 @Composable
 fun BotonTexto() {

@@ -1,4 +1,4 @@
-package Israel.Alfredo.Itza.Mendez.nierKaguya.nier
+package Israel.Alfredo.Itza.Mendez.nierKaguya.screen.main
 
 import Israel.Alfredo.Itza.Mendez.nierKaguya.R
 import androidx.compose.material.Icon
