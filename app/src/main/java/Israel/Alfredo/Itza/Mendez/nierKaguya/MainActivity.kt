@@ -1,5 +1,6 @@
 package Israel.Alfredo.Itza.Mendez.nierKaguya
 
+import Israel.Alfredo.Itza.Mendez.nierKaguya.MediaItem.Type
 import Israel.Alfredo.Itza.Mendez.nierKaguya.ui.theme.NierKaguyaTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,19 +10,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -32,11 +33,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import coil.transform.BlurTransformation
-import coil.transform.CircleCropTransformation
-import coil.transform.GrayscaleTransformation
-import coil.transform.RoundedCornersTransformation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,16 +51,30 @@ class MainActivity : ComponentActivity() {
                     //Aqui ejecuta la funcion, dandole un parametro. Este será lanzado a la app.
                     //Greeting("Android")
                     //BotonTexto()
-                    MediaItem()
+                    //MediaItem()
+                    MediaList()
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+@ExperimentalCoilApi
+@Preview
 @Composable
-fun MediaItem() {
+fun MediaList() {
+    LazyColumn(contentPadding = PaddingValues(10.dp),
+    verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        items(getMedia()) { item ->
+            MediaListItem(item)
+        }
+    }
+}
+
+@ExperimentalCoilApi
+//@Preview(showBackground = true)
+@Composable
+fun MediaListItem(item: MediaItem) {
     Column {
         Box(
             modifier = Modifier
@@ -72,7 +84,7 @@ fun MediaItem() {
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = "https://loremflickr.com/320/240?lock=1",
+                    data = item.thumb,
                     /*builder = {
                       /*  transformations(
                             (CircleCropTransformation()) //CIRCULAR
@@ -85,12 +97,16 @@ fun MediaItem() {
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-            Icon(Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
-            contentDescription = null,
-            modifier = Modifier.size(92.dp),
-            tint = Color.White
+            if (item.type == Type.VIDEO) {
+                Icon(
+                    Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
+                    contentDescription = null,
+                    modifier = Modifier.size(92.dp),
+                    tint = Color.White
                 )
-            //Icon(painter=painterResource(id=R.drawable.asdsds)
+            }
+
+            //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
         }
         Box(
             contentAlignment = Alignment.Center,
@@ -100,7 +116,7 @@ fun MediaItem() {
                 .padding(16.dp)
         ) {
             Text(
-                text = "Titulo pa pa pa",
+                text = item.title,
                 style = MaterialTheme.typography.h6
             )
         }
