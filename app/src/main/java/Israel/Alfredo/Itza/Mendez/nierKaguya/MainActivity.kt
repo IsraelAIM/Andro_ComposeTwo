@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Android
 import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -58,7 +59,13 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         topBar = {
                             TopAppBar(
-                                title = { Text(text = stringResource(id = R.string.app_name)) }
+                                title = {
+                                    Row{
+                                        Text(text = stringResource(id = R.string.app_name))
+                                        Spacer(modifier = Modifier.width(16.dp))
+                                        Icon(Icons.Default.Android,contentDescription = null)
+                                    }
+                                    }
                             )
                         }
                     ) { padding ->
