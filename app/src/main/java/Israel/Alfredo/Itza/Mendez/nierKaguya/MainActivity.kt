@@ -3,6 +3,8 @@ package Israel.Alfredo.Itza.Mendez.nierKaguya
 //import androidx.compose.runtime.setValue
 //import androidx.compose.runtime.getValue
 import Israel.Alfredo.Itza.Mendez.nierKaguya.MediaItem.Type
+import Israel.Alfredo.Itza.Mendez.nierKaguya.nier.MainAppBar
+import Israel.Alfredo.Itza.Mendez.nierKaguya.nier.MiNierApp
 import Israel.Alfredo.Itza.Mendez.nierKaguya.ui.theme.NierKaguyaTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,8 +15,6 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayCircleOutline
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 
+
 class MainActivity : ComponentActivity() {
     @ExperimentalCoilApi
     @ExperimentalFoundationApi
@@ -39,60 +40,47 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         //El setContent es esencial
         setContent {
-            //EL NierKaguyaTheme es esencial también
-            NierKaguyaTheme {
-                //Surface por el tipo
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    //Aqui ejecuta la funcion, dandole un parametro. Este será lanzado a la app.
-                    //Greeting("Android")
-                    //BotonTexto()
-                    //MediaItem()
-                    //MediaList()
-                    //MediaRowList()
-                    //MediaVGList()
-                    /* val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
-                     EstadoSample(
-                         value = value,
-                         onValueChange = onValueChange)*/
-                    Scaffold(
-                        topBar = {
-                            TopAppBar(
-                                title = {
-                                    Text(text = stringResource(id = R.string.app_name))
-                                },
-                                actions = {
-                                    IconButton(onClick = { /*TODO*/ }) {
-                                        Icon(
-                                            imageVector = Icons.Default.Search,
-                                            contentDescription = null
-                                        )
-                                    }
-                                    IconButton(onClick = { /*TODO*/ }) {
-                                        Icon(
-                                            imageVector = Icons.Default.Share,
-                                            contentDescription = null
-                                        )
-                                    }
-                                }
-                            )
-                        }
-                    ) { padding ->
-                        MediaXList(modifier = Modifier.padding(padding))
-                    }
+            MiNierApp() {
+                //Aqui ejecuta la funcion, dandole un parametro. Este será lanzado a la app.
+                //Greeting("Android")
+                //BotonTexto()
+                //MediaItem()
+                //MediaList()
+                //MediaRowList()
+                //MediaVGList()
+                /* val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
+                 EstadoSample(
+                     value = value,
+                     onValueChange = onValueChange)*/
+                Scaffold(
+                    topBar = { MainAppBar() }
+                ) { padding ->
+                    MediaXList(modifier = Modifier.padding(padding))
                 }
             }
         }
     }
 }
-
+//IDEA DE UNA PRUEBA CERCANA A LA REALIDAD
+@ExperimentalFoundationApi
+@ExperimentalCoilApi
+//@Preview
 @Composable
-fun Appbar() {
-
+fun MediaYList(modifier: Modifier = Modifier) {
+    MiNierApp {
+        LazyVerticalGrid(
+            contentPadding = PaddingValues(2.dp),
+            cells = GridCells.Adaptive(150.dp),
+            modifier = modifier
+        ) {
+            items(getMedia()) { item ->
+                MediaVGListItem(item, Modifier.padding(2.dp))
+            }
+        }
+    }
 }
 
+//Prueba con el ToolAppBar pasandole un parametro
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 //@Preview
@@ -346,6 +334,7 @@ fun MediaRListItem(item: MediaItem) {
     }
 }
 
+//FIN HORIZONTAL
 //Este es la función que interviene
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
