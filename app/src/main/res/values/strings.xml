@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Nier Kaguya</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porttitor urna in viverra hendrerit. Morbi lacus justo, blandit quis imperdiet id, semper iaculis urna. Maecenas ac aliquet velit. Donec eget mauris nibh. Nunc dignissim turpis eget facilisis feugiat. Aenean nibh massa, ornare sed maximus imperdiet, malesuada at tellus. Fusce malesuada non lorem eget efficitur.</string>
 </resources>
