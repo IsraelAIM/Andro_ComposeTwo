@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Android
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -60,12 +60,15 @@ class MainActivity : ComponentActivity() {
                         topBar = {
                             TopAppBar(
                                 title = {
-                                    Row{
-                                        Text(text = stringResource(id = R.string.app_name))
-                                        Spacer(modifier = Modifier.width(16.dp))
-                                        Icon(Icons.Default.Android,contentDescription = null)
+                                    Text(text = stringResource(id = R.string.app_name)) },
+                                navigationIcon={
+                                    IconButton(onClick = { /*TODO*/ }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Menu,
+                                            contentDescription = null
+                                        )
                                     }
-                                    }
+                                }
                             )
                         }
                     ) { padding ->
