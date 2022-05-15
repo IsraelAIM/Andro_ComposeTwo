@@ -5,14 +5,9 @@ import Israel.Alfredo.Itza.Mendez.nierKaguya.ui.theme.NierKaguyaTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -38,6 +33,8 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalCoilApi
+    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //El setContent es esencial
@@ -53,19 +50,93 @@ class MainActivity : ComponentActivity() {
                     //Greeting("Android")
                     //BotonTexto()
                     //MediaItem()
-                    MediaRowList()
+                    //MediaList()
+                    //MediaRowList()
+                    MediaVGList()
                 }
             }
         }
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Preview
 @Composable
+fun MediaVGList() {
+    LazyVerticalGrid(
+        contentPadding = PaddingValues(2.dp),
+        //cells = GridCells.Fixed(2)
+    cells = GridCells.Adaptive(200.dp)
+    ) {
+        items(getMedia()) { item ->
+            MediaVGListItem(item, Modifier.padding(2.dp))
+        }
+    }
+}
+
+@ExperimentalCoilApi
+//@Preview(showBackground = true)
+@Composable
+fun MediaVGListItem(item: MediaItem, modifier: Modifier=Modifier) {
+    Column(modifier = modifier) {
+        Box(
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = rememberImagePainter(
+                    data = item.thumb,
+                    /*builder = {
+                      /*  transformations(
+                            (CircleCropTransformation()) //CIRCULAR
+                        )
+                        crossfade(true)*/
+                              //transformations(BlurTransformation(LocalContext.current)) //EFECTO BLUR
+                    },*/
+                ),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+            if (item.type == Type.VIDEO) {
+                Icon(
+                    Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
+                    contentDescription = null,
+                    modifier = Modifier.size(92.dp),
+                    tint = Color.White
+                )
+            }
+
+            //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.secondary)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = item.title,
+                style = MaterialTheme.typography.h6
+            )
+        }
+    }
+}
+//FIN VERTICAL GRID
+
+//INICIO LAZYCOLUMN
+@ExperimentalCoilApi
+//@Preview
+@Composable
 fun MediaList() {
-    LazyColumn(contentPadding = PaddingValues(10.dp),
-    verticalArrangement = Arrangement.spacedBy(20.dp)) {
+    LazyColumn(
+        contentPadding = PaddingValues(10.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp)
+    ) {
         items(getMedia()) { item ->
             MediaListItem(item)
         }
@@ -73,11 +144,67 @@ fun MediaList() {
 }
 
 @ExperimentalCoilApi
-@Preview
+//@Preview(showBackground = true)
+@Composable
+fun MediaListItem(item: MediaItem, modifier: Modifier=Modifier) {
+    Column {
+        Box(
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = rememberImagePainter(
+                    data = item.thumb,
+                    /*builder = {
+                      /*  transformations(
+                            (CircleCropTransformation()) //CIRCULAR
+                        )
+                        crossfade(true)*/
+                              //transformations(BlurTransformation(LocalContext.current)) //EFECTO BLUR
+                    },*/
+                ),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+            if (item.type == Type.VIDEO) {
+                Icon(
+                    Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
+                    contentDescription = null,
+                    modifier = Modifier.size(92.dp),
+                    tint = Color.White
+                )
+            }
+
+            //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.secondary)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = item.title,
+                style = MaterialTheme.typography.h6
+            )
+        }
+    }
+}
+//FIN VERTICAL
+
+//INICIO HORIZONTAL
+@ExperimentalCoilApi
+//@Preview
 @Composable
 fun MediaRowList() {
-    LazyRow(contentPadding = PaddingValues(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    LazyRow(
+        contentPadding = PaddingValues(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(20.dp)
+    ) {
         items(getMedia()) { item ->
             MediaRListItem(item)
         }
@@ -136,59 +263,6 @@ fun MediaRListItem(item: MediaItem) {
     }
 }
 
-
-
-@ExperimentalCoilApi
-//@Preview(showBackground = true)
-@Composable
-fun MediaListItem(item: MediaItem) {
-    Column {
-        Box(
-            modifier = Modifier
-                .height(200.dp)
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                painter = rememberImagePainter(
-                    data = item.thumb,
-                    /*builder = {
-                      /*  transformations(
-                            (CircleCropTransformation()) //CIRCULAR
-                        )
-                        crossfade(true)*/
-                              //transformations(BlurTransformation(LocalContext.current)) //EFECTO BLUR
-                    },*/
-                ),
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-            if (item.type == Type.VIDEO) {
-                Icon(
-                    Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
-                    contentDescription = null,
-                    modifier = Modifier.size(92.dp),
-                    tint = Color.White
-                )
-            }
-
-            //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
-        }
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colors.secondary)
-                .padding(16.dp)
-        ) {
-            Text(
-                text = item.title,
-                style = MaterialTheme.typography.h6
-            )
-        }
-    }
-}
 
 //Este es la función que interviene
 @Composable
