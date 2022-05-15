@@ -14,8 +14,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -53,15 +51,46 @@ class MainActivity : ComponentActivity() {
                     //MediaList()
                     //MediaRowList()
                     //MediaVGList()
-                    val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
-                    EstadoSample(
-                        value = value,
-                        onValueChange = onValueChange)
+                    /* val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
+                     EstadoSample(
+                         value = value,
+                         onValueChange = onValueChange)*/
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                title = { Text(text = stringResource(id = R.string.app_name)) }
+                            )
+                        }
+                    ) { padding ->
+                        MediaXList(modifier = Modifier.padding(padding))
+                    }
                 }
             }
         }
     }
 }
+
+@Composable
+fun Appbar() {
+
+}
+
+@ExperimentalFoundationApi
+@ExperimentalCoilApi
+//@Preview
+@Composable
+fun MediaXList(modifier: Modifier = Modifier) {
+    LazyVerticalGrid(
+        contentPadding = PaddingValues(2.dp),
+        cells = GridCells.Adaptive(150.dp),
+        modifier = modifier
+    ) {
+        items(getMedia()) { item ->
+            MediaVGListItem(item, Modifier.padding(2.dp))
+        }
+    }
+}
+
 
 //@Preview(showBackground = true, widthDp = 400, heightDp = 400)
 @Composable //Recibir parametros no permite el uso de Previews
