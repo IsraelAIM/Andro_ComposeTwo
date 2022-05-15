@@ -11,6 +11,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     //Greeting("Android")
                     //BotonTexto()
                     //MediaItem()
-                    MediaList()
+                    MediaRowList()
                 }
             }
         }
@@ -70,6 +71,72 @@ fun MediaList() {
         }
     }
 }
+
+@ExperimentalCoilApi
+@Preview
+@Composable
+fun MediaRowList() {
+    LazyRow(contentPadding = PaddingValues(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+        items(getMedia()) { item ->
+            MediaRListItem(item)
+        }
+    }
+}
+
+@ExperimentalCoilApi
+//@Preview(showBackground = true)
+@Composable
+fun MediaRListItem(item: MediaItem) {
+    Column(
+        modifier = Modifier.width(200.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .height(200.dp)
+        ) {
+            Image(
+                painter = rememberImagePainter(
+                    data = item.thumb,
+                    /*builder = {
+                      /*  transformations(
+                            (CircleCropTransformation()) //CIRCULAR
+                        )
+                        crossfade(true)*/
+                              //transformations(BlurTransformation(LocalContext.current)) //EFECTO BLUR
+                    },*/
+                ),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+            if (item.type == Type.VIDEO) {
+                Icon(
+                    Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
+                    contentDescription = null,
+                    modifier = Modifier.size(92.dp),
+                    tint = Color.White
+                )
+            }
+
+            //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.secondary)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = item.title,
+                style = MaterialTheme.typography.h6
+            )
+        }
+    }
+}
+
+
 
 @ExperimentalCoilApi
 //@Preview(showBackground = true)
