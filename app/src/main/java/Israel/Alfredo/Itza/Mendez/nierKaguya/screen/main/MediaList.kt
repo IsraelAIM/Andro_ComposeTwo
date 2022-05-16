@@ -3,13 +3,17 @@ package Israel.Alfredo.Itza.Mendez.nierKaguya.screen.main
 import Israel.Alfredo.Itza.Mendez.nierKaguya.R
 import Israel.Alfredo.Itza.Mendez.nierKaguya.model.MediaItem
 import Israel.Alfredo.Itza.Mendez.nierKaguya.model.getMedia
-import Israel.Alfredo.Itza.Mendez.nierKaguya.nier.MiNierApp
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.Composable
@@ -18,10 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 
+/*
 //IDEA DE UNA PRUEBA CERCANA A LA REALIDAD
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
@@ -35,30 +40,38 @@ fun MediaYList(modifier: Modifier = Modifier) {
             modifier = modifier
         ) {
             items(getMedia()) { item ->
-                MediaVGListItem(item, Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall)))
+                MediaVGListItem(
+                    item,
+                    navController,
+                    Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall))
+                )
             }
         }
     }
 }
-
+*/
 //Prueba con el ToolAppBar pasandole un parametro
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 //@Preview
 @Composable
-fun MediaXList(modifier: Modifier = Modifier) {
+fun MediaXList(navController: NavHostController, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_xsmall)),
         cells = GridCells.Adaptive(dimensionResource(id = R.dimen.cell_min_width)),
         modifier = modifier
     ) {
         items(getMedia()) { item ->
-            MediaVGListItem(item, Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall)))
+            MediaVGListItem(
+                item = item,
+                navController,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall))
+            )
         }
     }
 }
 
-
+/* FUNCION PARA ESTADO
 //@Preview(showBackground = true, widthDp = 400, heightDp = 400)
 @Composable //Recibir parametros no permite el uso de Previews
 fun EstadoSample(value: String, onValueChange: (String) -> Unit) {
@@ -92,7 +105,8 @@ fun EstadoSample(value: String, onValueChange: (String) -> Unit) {
         }
     }
 }
-
+ */
+/*
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 //@Preview
@@ -104,16 +118,23 @@ fun MediaVGList() {
         cells = GridCells.Adaptive(200.dp)
     ) {
         items(getMedia()) { item ->
-            MediaVGListItem(item, Modifier.padding(2.dp))
+            MediaVGListItem(item, navController, Modifier.padding(2.dp))
         }
     }
 }
-
+*/
 @ExperimentalCoilApi
 //@Preview(showBackground = true)
 @Composable
-fun MediaVGListItem(item: MediaItem, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+fun MediaVGListItem(
+    item: MediaItem,
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier
+        .clickable {  navController.navigate("detail/${item.id}")}
+
+        ) {
         Box(
             modifier = Modifier
                 .height(dimensionResource(id = R.dimen.cell_thumb_height))
@@ -161,7 +182,7 @@ fun MediaVGListItem(item: MediaItem, modifier: Modifier = Modifier) {
     }
 }
 //FIN VERTICAL GRID
-
+/*
 //INICIO LAZYCOLUMN
 @ExperimentalCoilApi
 //@Preview
@@ -227,8 +248,9 @@ fun MediaListItem(item: MediaItem, modifier: Modifier = Modifier) {
         }
     }
 }
+*/
 //FIN VERTICAL
-
+/*
 //INICIO HORIZONTAL
 @ExperimentalCoilApi
 //@Preview
@@ -295,4 +317,4 @@ fun MediaRListItem(item: MediaItem) {
     }
 }
 //FIN HORIZONTAL
-
+*/
