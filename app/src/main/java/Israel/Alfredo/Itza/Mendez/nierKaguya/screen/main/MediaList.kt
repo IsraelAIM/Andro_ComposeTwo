@@ -5,6 +5,7 @@ import Israel.Alfredo.Itza.Mendez.nierKaguya.model.MediaItem
 import Israel.Alfredo.Itza.Mendez.nierKaguya.model.getMedia
 import Israel.Alfredo.Itza.Mendez.nierKaguya.screen.common.Thumb
 import Israel.Alfredo.Itza.Mendez.nierKaguya.screen.common.Title
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -13,9 +14,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 
@@ -124,15 +130,21 @@ fun MediaVGListItem(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier
-        .clickable { navController.navigate("detail/${item.id}") }
-
-    ) {
-        Thumb(item)
-        Title(item)
-
-        //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
+    Card(
+        modifier = modifier.clickable {
+            navController.navigate("detail/${item.id}") },
+        elevation = 0.dp,
+        border = BorderStroke(1.dp, Color.LightGray),
+        backgroundColor = MaterialTheme.colors.primary,
+        contentColor = MaterialTheme.colors.secondary
+        //shape = RoundedCornerShape(16.dp)
+        ) {
+        Column {
+            Thumb(item)
+            Title(item)
+        }
     }
+
 
 }
 

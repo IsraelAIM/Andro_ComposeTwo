@@ -21,7 +21,7 @@ fun Title(mediaItem: MediaItem) {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.secondary)
+            //.background(MaterialTheme.colors.secondary)
             .padding(dimensionResource(id = R.dimen.padding_medium))
     ) {
         Text(
