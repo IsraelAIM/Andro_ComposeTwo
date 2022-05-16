@@ -18,19 +18,19 @@ import coil.compose.rememberImagePainter
 
 @ExperimentalCoilApi
 @Composable
-fun Thumb(mediaItem: MediaItem, modifier: Modifier= Modifier) {
+fun Thumb(mediaItem: MediaItem, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .height(dimensionResource(id = R.dimen.cell_thumb_height))
             .fillMaxWidth()
     ) {
         Image(
-            painter = rememberImagePainter(data=mediaItem.thumb),
-            contentDescription =null,
-            modifier=Modifier.fillMaxSize(),
+            painter = rememberImagePainter(data = mediaItem.thumb),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        if(mediaItem.type == MediaItem.Type.VIDEO){
+        if (mediaItem.type == MediaItem.Type.VIDEO) {
             Icon(
                 Icons.Default.PlayCircleOutline,
                 contentDescription = null,

@@ -18,7 +18,7 @@ fun DetailScreen(mediaId: Int) {
         topBar = {
             TopAppBar(title = { Text(text = mediaItem.title) })
         }
-    ) { padding->
+    ) { padding ->
         Thumb(mediaItem = mediaItem, Modifier.padding(padding))
     }
 }

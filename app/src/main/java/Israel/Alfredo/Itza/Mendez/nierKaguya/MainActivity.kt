@@ -47,9 +47,10 @@ class MainActivity : ComponentActivity() {
                             type =
                                 NavType.IntType
                         })
-                    ) { backStackEntry->
-                        val id= backStackEntry.arguments?.getInt("mediaId")
-                        requireNotNull(id,{"No puede ser nulo porque el detalle siempre necesita un id"})
+                    ) { backStackEntry ->
+                        val id = backStackEntry.arguments?.getInt("mediaId")
+                        requireNotNull(id,
+                            { "No puede ser nulo porque el detalle siempre necesita un id" })
                         DetailScreen(id)
                     }
                 }

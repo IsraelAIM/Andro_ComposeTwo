@@ -3,28 +3,21 @@ package Israel.Alfredo.Itza.Mendez.nierKaguya.screen.main
 import Israel.Alfredo.Itza.Mendez.nierKaguya.R
 import Israel.Alfredo.Itza.Mendez.nierKaguya.model.MediaItem
 import Israel.Alfredo.Itza.Mendez.nierKaguya.model.getMedia
+import Israel.Alfredo.Itza.Mendez.nierKaguya.screen.common.Thumb
+import Israel.Alfredo.Itza.Mendez.nierKaguya.screen.common.Title
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
 
 /*
 //IDEA DE UNA PRUEBA CERCANA A LA REALIDAD
@@ -132,55 +125,17 @@ fun MediaVGListItem(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier
-        .clickable {  navController.navigate("detail/${item.id}")}
+        .clickable { navController.navigate("detail/${item.id}") }
 
-        ) {
-        Box(
-            modifier = Modifier
-                .height(dimensionResource(id = R.dimen.cell_thumb_height))
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                painter = rememberImagePainter(
-                    data = item.thumb,
-                    /*builder = {
-                      /*  transformations(
-                            (CircleCropTransformation()) //CIRCULAR
-                        )
-                        crossfade(true)*/
-                              //transformations(BlurTransformation(LocalContext.current)) //EFECTO BLUR
-                    },*/
-                ),
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-            if (item.type == MediaItem.Type.VIDEO) {
-                Icon(
-                    Icons.Default.PlayCircleOutline, //Outlined, Filled, Rounded, Sharp, TwoTone
-                    contentDescription = null,
-                    modifier = Modifier.size(dimensionResource(id = R.dimen.cell_play_icon_size)),
-                    tint = Color.White
-                )
-            }
+    ) {
+        Thumb(item)
+        Title(item)
 
-            //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
-        }
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colors.secondary)
-                .padding(dimensionResource(id = R.dimen.padding_medium))
-        ) {
-            Text(
-                text = item.title,
-                style = MaterialTheme.typography.h6
-            )
-        }
+        //Icon(painter=painterResource(id=R.drawable.asdsds) EJEMPLO
     }
+
 }
+
 //FIN VERTICAL GRID
 /*
 //INICIO LAZYCOLUMN
