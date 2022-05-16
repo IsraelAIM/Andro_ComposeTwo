@@ -135,8 +135,8 @@ fun MediaVGListItem(
             navController.navigate("detail/${item.id}") },
         elevation = 0.dp,
         border = BorderStroke(1.dp, Color.LightGray),
-        backgroundColor = MaterialTheme.colors.primary,
-        contentColor = MaterialTheme.colors.secondary
+        //backgroundColor = MaterialTheme.colors.primary,
+        //contentColor = MaterialTheme.colors.secondary
         //shape = RoundedCornerShape(16.dp)
         ) {
         Column {
